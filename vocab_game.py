@@ -12,7 +12,7 @@ if "ans3_val" not in st.session_state:
     st.session_state.ans3_val = ""
 if "ans4_val" not in st.session_state:
     st.session_state.ans4_val = ""
-  
+
 
 # 📌 ฟังก์ชันเคลียร์ค่าเมื่อกดปุ่มเริ่มใหม่
 def reset_game():
@@ -28,7 +28,7 @@ def reset_game():
 # 📌 ฟังก์ชัน MessageBox (Dialog)
 # ----------------------------------------------------
 @st.dialog("📊 สรุปผลการเล่นเกม")
-def show_result_dialog(ans1, ans2):
+def show_result_dialog(ans1, ans2, ans3, ans4):
     st.balloons()
     score = 0
 
@@ -52,18 +52,18 @@ def show_result_dialog(ans1, ans2):
         st.error(f"❌ ข้อ 2: ยังไม่ถูกต้อง (คุณตอบ '{u_ans2}')")
 
     # ตรวจข้อ 3
-    if u_ans1 == "cherry":
-      st.success("✅ ข้อ 3: ถูกต้อง")
+    if u_ans3 == "cherry":
+        st.success("✅ ข้อ 3: ถูกต้อง")
         score += 1
     else:
-      st.error(f"❌ ข้อ 3: ยังไม่ถูกต้อง (คุณตอบ '{u_ans3}')")
+        st.error(f"❌ ข้อ 3: ยังไม่ถูกต้อง (คุณตอบ '{u_ans3}')")
 
-      # ตรวจข้อ 4
-    if u_ans1 == "gift":
-      st.success("✅ ข้อ 4: ถูกต้อง")
+    # ตรวจข้อ 4
+    if u_ans4 == "gift":
+        st.success("✅ ข้อ 4: ถูกต้อง")
         score += 1
     else:
-      st.error(f"❌ ข้อ 4: ยังไม่ถูกต้อง (คุณตอบ '{u_ans4}')")
+        st.error(f"❌ ข้อ 4: ยังไม่ถูกต้อง (คุณตอบ '{u_ans4}')")
 
     st.info(f"🏆 ได้คะแนนรวม: {score} คะแนน")
 
@@ -90,7 +90,7 @@ if "start" in st.session_state and not st.session_state.get("is_ended", False):
 
 st.divider()
 
-# 3. ช่องรับคำตอบ (ใช้ value ผูกกับตัวแปรตรงๆ เพื่อสั่งเคลียร์ได้)
+# 3. ช่องรับคำตอบ
 ans1 = st.text_input(
     "ข้อ 1: An `a _ _ l e` a day keeps the doctor away. 🍎",
     value=st.session_state.ans1_val,
@@ -101,18 +101,18 @@ ans2 = st.text_input(
 )
 ans3 = st.text_input(
     "ข้อ 3: I put a `c h e _ _ y` on top of the cake. 🍒",
-    value=st.session_state.ans2_val,
+    value=st.session_state.ans3_val,
 )
-      ans4 = st.text_input(
+ans4 = st.text_input(
     "ข้อ 4: I bought you some `g _ f t`. 🎁",
-    value=st.session_state.ans2_val,
+    value=st.session_state.ans4_val,
 )
+
 # อัปเดตค่าล่าสุดเข้าตัวแปร
 st.session_state.ans1_val = ans1
 st.session_state.ans2_val = ans2
 st.session_state.ans3_val = ans3
 st.session_state.ans4_val = ans4
-
 
 
 # 4. ปุ่มส่งคำตอบ
